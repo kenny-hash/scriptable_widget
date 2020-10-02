@@ -82,10 +82,11 @@ async function createWidget(items, size) {
   w.backgroundGradient = gradient
   // Add spacer above content to center it vertically.
   w.addSpacer()
+    w.addSpacer()
   text = items.hitokoto
   //text = '南朝四百八十寺，多少楼台烟雨中。'
   mid = text.length/2 //7
-  if(text[mid - 1] == '，'){
+  if(text[mid - 1] == '，' && items.type == 'i'){
     text = '\t' + text.substring(0, mid) + '\n' + '\t' + text.substring(mid, items.length)
   }
   // Show article headline.
@@ -100,16 +101,19 @@ async function createWidget(items, size) {
   titleTxt.textColor = Color.white()
   titleTxt.centerAlignText()
   // Add spacing below headline.
-//   w.addSpacer(50)
-  // Show authors.
-//   let authorsTxt = w.addText("——" + authors+".         ")
-//   authorsTxt.font = Font.mediumSystemFont(12)
-//   authorsTxt.textColor = Color.white()
-//   authorsTxt.textOpacity = 0.9
-//   authorsTxt.rightAlignText()
+  w.addSpacer()
+  //Show authors.
+  if(items.type == 'i'){
+    authors = '《'+ authors + '》'
+  }
+  let authorsTxt = w.addText("——" + authors+"       ")
+  authorsTxt.font = Font.mediumSystemFont(12)
+  authorsTxt.textColor = Color.white()
+  authorsTxt.textOpacity = 0.9
+  authorsTxt.rightAlignText()
   // Add spacing below authors.
 
-//   w.addSpacer(2)
+//    w.addSpacer()
   // let Colortext = w.addText(nipponcolor.name + nipponcolor.cname)
   // Colortext.font = Font.boldSystemFont(36)
   // Colortext.textColor = Color.white()
@@ -1664,5 +1668,15 @@ async function nipponcolors(dark) {
   }
   return color
 }
+
+
+
+
+
+
+
+
+
+
 
 
