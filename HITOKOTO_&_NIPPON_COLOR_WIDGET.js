@@ -82,9 +82,14 @@ async function createWidget(items, size) {
   w.backgroundGradient = gradient
   // Add spacer above content to center it vertically.
   w.addSpacer()
-  
+  text = items.hitokoto
+  //text = '南朝四百八十寺，多少楼台烟雨中。'
+  mid = text.length/2 //7
+  if(text[mid - 1] == '，'){
+    text = '\t' + text.substring(0, mid) + '\n' + '\t' + text.substring(mid, items.length)
+  }
   // Show article headline.
-  let titleTxt = w.addText("「"+items.hitokoto+"」")
+  let titleTxt = w.addText("「"+text+"」")
   titleTxt.font = Font.boldSystemFont(24)
   console.log(size)
   if(size == 1){
@@ -116,9 +121,12 @@ async function createWidget(items, size) {
   
 async function loadItems() {
   size = args.widgetParameter
-  let url = "https://v1.hitokoto.cn/?encode=json?c=k"
-  if(size = 1){
+  let url = "https://v1.hitokoto.cn/?encode=json"
+  if(size == 1){
     url = url + "&max_length=15"
+  }
+  if(size == 4){
+    url += "&min_length=20"
   }
   let req = new Request(url)
   let json = await req.loadJSON()
@@ -1656,3 +1664,5 @@ async function nipponcolors(dark) {
   }
   return color
 }
+
+
